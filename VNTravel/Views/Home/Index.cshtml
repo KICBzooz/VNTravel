@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/CSS/Index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /><!-- fontawesome links -->
+    <style>
+        .voucher {
+        }
+
+        .container_voucher {
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 0%;
+            padding-right: 10px;
+        }
+
+        #image_voucher #plane {
+            position: absolute;
+            width: 400px;
+            left: 40%;
+            top: -5%;
+        }
+
+        #image_voucher {
+            height: 263px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            background-image: url('../images/voucher.jpg');
+        }
+
+        #info_voucher {
+            text-align: center;
+        }
+
+        .btn-voucher {
+            display: inline-block;
+            width: 51%;
+            padding: 10px 50px;
+            font-size: 25px;
+            font-weight: 600;
+            background: #333;
+            color: #fff;
+            margin-bottom: 5%;
+        }
+
+        .offer {
+            font-size: 5rem;
+        }
+
+        #mobile-plane {
+            display: none;
+        }
+        #abc{
+            height:160px;
+        }
+    </style>
+</head>
+
+
+<div id="abc">
+    @if (Session["Voucher"] != null)
+    {
+        <div class="voucher">
+            <div class="container_voucher">
+                <div class="row_voucher">
+                    <div class="col-md-6" id="image_voucher">
+                        <img src="https://www.freepnglogos.com/uploads/plane-png/png-jet-plane-transparent-jet-plane-images-pluspng-34.png" alt="" id="plane">
+                    </div>
+                    <div class="col-md-6">
+                        <div id="info_voucher" class="pt-md-4">
+                            <div id="mobile-plane">
+                            </div>
+                            <div class="h4">Get</div>
+                            <div class="offer font-weight-bold"><i>@ViewBag.Percent% OFF</i></div>
+                            <div class="h4">on</div>
+                            <div class="h4">Flight and Room</div>
+                            <div class="pt-5 coupon">
+                                <i>Begin: @ViewBag.Begin</i>
+                                <i>End: @ViewBag.End</i>
+                            </div>
+                            <div class="btn-voucher rounded mt-3">@ViewBag.VoucherName</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     }
+     else { 
+        <style>
+            #abc {
+                height: 0px;
+            }
+        </style>
+     }
+</div>
+<hr />
+
+<!--Booking-->
+<table class="equal-columns">
+    <tr>
+        <td><button class="open-hotel close-flight"><img src="~/Font/hotel-solid.svg" width="24" height="24" /> Khách Sạn</button></td>
+        <td><button class="open-flight close-hotel"><img src="~/Font/plane-up-solid.svg" width="24" height="24" /> Chuyến bay</button></td>
+        <td>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm..." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="hotel-content hidden-hotel">
+    <div class="hotel-header">
+        <h3>Đặt khách sạn</h3>
+    </div>
+
+    @using (Html.BeginForm("SearchHotel", "Home", FormMethod.Post))
+    {
+        <div class="hotel-body">
+            <form>
+                <label for="num-nights">Địa Điểm:</label>
+                <input type="text" id="num-nights" name="location"><br />
+
+                @*<label for="hotels">Khách sạn:</label>
+                    <select id="hotels" name="hotels">
+                        <option value="hotel1">Khách sạn 1</option>
+                        <option value="hotel2">Khách sạn 2</option>
+                        <option value="hotel3">Khách sạn 3</option>
+                    </select>*@
+
+                @*<label for="check-in">Ngày nhận phòng:</label>
+                <input type="date" id="check-in" name="checkin">
+
+                <label for="check-out">Ngày trả phòng:</label>
+                <input type="date" id="check-out" name="checkout">*@
+
+                @*<label for="num-nights">Số ngày/đêm:</label>
+                    <input type="number" id="num-nights" name="num-nights" min="1"><br />*@
+                <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+            </form>
+        </div>
+    }
+</div>
+
+<div class="flight-content hidden-flight">
+    <div class="flight-header">
+        <h3>Đặt chuyến bay</h3>
+    </div>
+    @using (Html.BeginForm("SearchFlight", "Home", FormMethod.Post))
+    {
+        <div class="flight-body">
+            <form>
+                @*<label for="departure">Địa điểm xuất phát:</label>
+                <select id="departure" name="departure">
+                    <option value="city1">Thành phố 1</option>
+                    <option value="city2">Thành phố 2</option>
+                    <option value="city3">Thành phố 3</option>
+                </select>
+
+                <label for="arrival">Địa điểm đến:</label>
+                <select id="arrival" name="arrival">
+                    <option value="city1">Thành phố 1</option>
+                    <option value="city2">Thành phố 2</option>
+                    <option value="city3">Thành phố 3</option>
+                </select>*@
+
+                @*<label for="seat-class">Hạng ghế:</label>
+                    <select id="seat-class" name="seat-class">
+                        <option value="economy">Phổ thông</option>
+                        <option value="business">Hạng thương gia</option>
+                        <option value="first-class">Hạng đầu tiên</option>
+                    </select>*@
+                <label for="check-in">Địa điểm xuất phát:</label>
+                <input type="text" id="check-in" name="departure" required>
+
+                <label for="check-in">Địa điểm đến:</label>
+                <input type="text" id="check-in" name="arrival" required>
+
+                <label for="check-in">Ngày đi:</label>
+                <input type="date" id="check-in" name="checkin" required>
+
+                <label for="check-out">Ngày về:</label>
+                <input type="date" id="check-out" name="checkout" required>
+                @*<label for="departure-date">Ngày đi:</label>
+                    <input type="date" id="departure-date" name="departure-date"><br />*@
+
+
+                @*<label for="passengers">Số hành khách:</label>
+                    <input type="number" id="passengers" name="passengers" min="1">*@
+
+                @*<label for="round-trip">Vé khứa hồi:</label>
+                    <input type="checkbox" id="round-trip" name="round-trip"><br />*@
+
+                <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+            </form>
+        </div>
+    }
+
+</div>
+
+<!--Booking-->
+<hr />
+
+
+<hr />
+<!--News-->
+<div class="row" >
+    <h1><a href="@Url.Action("Flight","Flight")">Địa điểm du lịch</a></h1>
+    <div class="col-md-6">
+        <div class="content1">
+            <div class="img-container">
+                <img src="~/Img/vinh-ha-long.jpg" />
+                <p class="caption">Vịnh Hạ Long</p>
+                <p class="note">Giá vé một chiều từ</p>
+                <p class="price">400.000VNĐ</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="content2">
+            <div class="img-container">
+                <img src="~/Img/vinhhalong.jpg" />
+                <p class="caption">Vịnh Hạ Long</p>
+                <p class="note">Giá vé một chiều từ</p>
+                <p class="price">400.000VNĐ</p>
+            </div>
+        </div>
+        <div class="content3">
+            <div class="img-container">
+                <img src="~/Img/phong-nha.jpg" />
+                <p class="caption">Phong Nha</p>
+                <p class="note">Giá vé một chiều từ</p>
+                <p class="price">600.000VNĐ</p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <h1><a href="@Url.Action("Hotel","Hotel")">Khách Sạn</a></h1>
+    <div class="col-md-6">
+        <div class="content1">
+            <div class="img-container">
+                <img src="~/Img/KS-boutique.jpg" />
+                <p class="caption">L'AMOR BOUTIQUE'</p>
+                <p class="note">Giá</p>
+                <p class="price">500.000VNĐ</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="content2">
+            <div class="img-container">
+                <img src="~/Img/KS-dianamond.jpg" />
+                <p class="caption">DINAMOND STARS</p>
+                <p class="note">Giá</p>
+                <p class="price">300.000VNĐ</p>
+            </div>
+        </div>
+        <div class="content3">
+            <div class="img-container">
+                <img src="~/Img/KS-victory.jpg" />
+                <p class="caption">Victory Hotel Sam Son</p>
+                <p class="note">Giá</p>
+                <p class="price">450.000VNĐ</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--News-->
+<hr />
+<h1 class="text-center">Tại sao nên sử dụng VNTRAVEL</h1>
+<div class="row question">
+    <div class="col-lg-3">
+        <img src="~/Img/icoin-1.png" />
+        <h4>Giải pháp du lịch hoàn thiện</h4>
+        <p>Giải pháp toàn diện - giúp bạn tìm chuyến bay và khách sạn khắp Việt Nam và Đông Nam Á một cách tiết kiệm.</p>
+    </div>
+    <div class="col-lg-3">
+        <img src="~/Img/icon-2.png" />
+        <h4>Giá rẻ mỗi ngày</h4>
+        <p>Giá bạn thấy là giá bạn trả! Dễ dàng so sánh khi không cần phải trả thêm chi phí ẩn!</p>
+    </div>
+    <div class="col-lg-3">
+        <img src="~/Img/icoin-3.png" />
+        <h4>Phương thức thanh toán an toàn và linh hoạt</h4>
+        <p>Giao dịch trực tuyến an toàn với nhiều lựa chọn như thanh toán tại cửa hàng tiện lợi, chuyển khoản ngân hàng, thẻ tín dụng đến Internet Banking. Không tính phí giao dịch.</p>
+    </div>
+    <div class="col-lg-3">
+        <img src="~/Img/icoin-4.png" />
+        <h4>Hỗ trợ khách hàng 24/7</h4>
+        <p>Đội ngũ nhân viên hỗ trợ khách hàng luôn sẵn sàng giúp đỡ bạn trong từng bước của quá trình đặt vé.</p>
+    </div>
+</div>
+
+<script src="~/MyScript/Booking.js"></script>

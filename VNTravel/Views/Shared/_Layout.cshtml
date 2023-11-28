@@ -1,0 +1,442 @@
+﻿@using Microsoft.Owin.Security
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="~/CSS/slick-theme.css" rel="stylesheet" /><!-- Carousel links -->
+    <link href="~/CSS/slick.css" rel="stylesheet" /><!-- Carousel links -->
+    <link href="~/CSS/Carosel.css" rel="stylesheet" /> <!-- Carousel links -->
+    <link href="~/CSS/Footer.css" rel="stylesheet" /> <!-- Footer css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /><!-- fontawesome links -->
+    <link href="~/CSS/NAVbar.css" rel="stylesheet" /><!-- NAV css -->
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="glyphicon glyphicon-menu-hamburger text-primary"></span>
+                </button>
+                <a class="navbar-brand text-primary" href="~/Home/Index">VNTRAVEL</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <span class="glyphicon glyphicon-download-alt"></span> Tải ứng dụng
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item text-center" href="#">
+                                    <span class="glyphicon glyphicon-download-alt"></span> Quét mã QR để tải xuống <br />
+                                    <img src="~/Img/QRCode.jpeg" width="100" height="100" class="mx-auto" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-center" href="#">
+                                    <img src="~/Img/download-appstore.png" width="150" height="50" class="mx-auto" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-center" href="#">
+                                    <img src="~/Img/download-chplay.png" width="150" height="50" class="mx-auto" />
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="~/Home/Cooperate"><span class="glyphicon glyphicon-pencil"></span> Hợp tác</a></li>
+                    <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Hỗ trợ</a></li>
+                    @*<li class="nav-item"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Giỏ hàng</a></li>*@
+                    @*Login*@
+                    <li class="nav-item">
+                        @if (Session["UserName"] != null)
+                        {
+                            @*<a href="/Home/ViewInfo">@Session["UserName"].ToString()</a>
+
+                            using (Html.BeginForm("LogOff", "AccountGoogle", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <ul class="nav">
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                </ul>
+                            }*@
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/AccountGoogle/ExternalLoginCallback?provider=Google&returnUrl=/Index" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-user"></span> @Session["UserName"].ToString()
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <div class="form-container">
+                                            <div style="display: flex; justify-content: center; align-items: center;">
+                                                <div style="border-top: 1px solid black; width: 20%;"></div>
+                                                <span style="padding: 0 10px;">Tiện Ích Người Dùng</span>
+                                                <div style="border-top: 1px solid black; width: 20%;"></div>
+                                            </div>
+                                            <ul class="nav">
+                                                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>  Giỏ hàng</a></li>
+                                                <li><a href="~/Home/Favourite"><span class="glyphicon glyphicon-heart"></span>  Danh sách yêu thích</a></li>
+                                            </ul>
+                                            <div style="display: flex; justify-content: center; align-items: center;">
+                                                <div style="border-top: 1px solid black; width: 20%;"></div>
+                                                <span style="padding: 0 10px;">Đăng xuất</span>
+                                                <div style="border-top: 1px solid black; width: 20%;"></div>
+                                            </div>
+                                            @using (Html.BeginForm("LogOff", "AccountGoogle", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <ul class="nav" style="margin-right:30px">
+                                                    <li><a  href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                                </ul>
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                    }
+                    else
+                    {
+
+                        <li class="nav-item">
+
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/AccountGoogle/ExternalLoginCallback?provider=Google&returnUrl=/Index" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <span class="glyphicon glyphicon-log-in"></span> Đăng nhập
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <form class="form-container" method="post" action="@Url.Action("Login", "Home")">
+                                        <h1 class="text-primary text-center">VNTRAVEL</h1>
+                                        <p class="text-center">Chào mừng đến với VNTRAVEL</p>
+
+                                        <label for="username"><b>Tên đăng nhập</b></label>
+                                        <input type="text" name="username" placeholder="Username or email" required>
+
+                                        <label for="psw"><b>Mật khẩu</b></label>
+                                        <input type="password" name="password" placeholder="Nhập mật khẩu" required>
+
+                                        <div class="save-info">
+                                            <input type="checkbox" id="save-info-checkbox">
+                                            <label for="save-info-checkbox">Lưu thông tin đăng nhập</label>
+                                        </div>
+
+                                        <button type="submit" class="btn">Đăng nhập</button>
+
+                                        <div>
+                                            <a href="#">Quên mật khẩu?</a>
+                                        </div>
+
+                                        <div style="display: flex; justify-content: center; align-items: center;">
+                                            <div style="border-top: 1px solid black; width: 20%;"></div>
+                                            <span style="padding: 0 10px;">hoặc đăng nhập với</span>
+                                            <div style="border-top: 1px solid black; width: 20%;"></div>
+                                        </div>
+                                    </form>
+
+                                    @using (Html.BeginForm("ExternalLogin", "AccountGoogle", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div id="socialLoginList">
+                                            <p>
+
+                                                <button type="submit" class="btng" title="Log in using your Google account">
+                                                    Tiếp tục với Google
+                                                    <svg class="icon-gg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="24" width="24"><path fill="#4285f4" d="M386 400c45-42 65-112 53-179H260v74h102c-4 24-18 44-38 57z"></path><path fill="#34a853" d="M90 341a192 192 0 0 0 296 59l-62-48c-53 35-141 22-171-60z"></path><path fill="#fbbc02" d="M153 292c-8-25-8-48 0-73l-63-49c-23 46-30 111 0 171z"></path><path fill="#ea4335" d="M153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55z"></path></svg>
+                                                </button>
+                                            </p>
+                                        </div>
+                                    }
+                                    <div class="btn button-google size-btnGoogle">
+
+                                        <style>
+                                            #socialLoginList {
+                                                padding-bottom: 1px;
+                                                border-radius: 31px;
+                                                margin-right: 10px;
+                                                margin-left: 10px;
+                                                padding-top: 13px;
+                                                background: gainsboro;
+                                            }
+
+                                                #socialLoginList:hover {
+                                                    background-color: lightgrey;
+                                                }
+
+                                            .size-btnGoogle {
+                                                max-width: 100%;
+                                                max-height: 40px;
+                                            }
+
+                                            .btng {
+                                                margin-left: 20%;
+                                                display: flex;
+                                                align-items: flex-start;
+                                                background-color: transparent;
+                                                border: none;
+                                            }
+                                        </style>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </li>
+                        //Login
+                        //    Register
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user"></span> Đăng ký
+                            </a>
+                            <ul class="dropdown-menu register" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <form class="form-container" method="post" action="@Url.Action("Register", "Home")">
+                                        <h1 class="text-primary text-center">VNTRAVEL</h1>
+                                        <p class="text-center">Chào mừng đến với VNTRAVEL</p>
+
+                                        <label for="username"><b>Tên đăng nhập</b></label>
+                                        <input type="text" placeholder="Nhập tên đăng nhập" id="regusername" name="username" required>
+
+                                        <label for="psw"><b>Mật khẩu</b></label>
+                                        <input type="password" placeholder="Nhập mật khẩu" id="regpsw" name="password" required>
+
+                                        <label for="psw"><b> Nhập lại Mật khẩu</b></label>
+                                        <input type="password" placeholder="Nhập lại mật khẩu" id="confpsw" name="repassword" required>
+
+                                        <label for="name"><b>Họ và tên</b></label>
+                                        <input type="text" placeholder="Nhập tên Họ và Tên" id="name" name="name" required>
+
+                                        <label for="email"><b>Email</b></label>
+                                        <input type="text" placeholder="Nhập tên Email" id="email" name="email" required>
+
+                                        <label for="phone"><b>Số điện thoại</b></label>
+                                        <input type="text" placeholder="Nhập tên SĐT" id="phone" name="phone" required>
+
+                                        <button type="submit" class="btn">Đăng ký</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                        </li>
+
+
+                        @*Register*@
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- NAV -->
+        <!-- Carousel wrapper -->
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Img/carosel01.jpg" />
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Img/carosel02.jpg" />
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Img/carosel03.jpg" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Explore the colorful world</h3>
+                            <hr />
+                            <h1>A Wonderful Gift</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <!-- Carousel wrapper -->
+        <hr />
+
+        <div class="container">
+            @RenderBody()
+        </div>
+        <hr />
+        <!-- Footer -->
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <a href="~/Home/Index" class="text-primary"><h1>VNTRAVEL</h1></a>
+                                </div>
+
+                                <div class="footer-widget-heading">
+                                    <h3>Đối tác thanh toán</h3>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/visa.png" /></a>
+                                            </div>
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/Vietinbank.png" /></a>
+                                            </div>
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/vietcombank.jpg" /></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/sacombank.jpg" /></a>
+                                            </div>
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/momo.png" /></a>
+                                            </div>
+                                            <div class="col-sm-1 f-img">
+                                                <a href="#"><img src="~/Img/JCB.jpg" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="footer-social-icon">
+                                    <span>Theo dõi chúng tôi</span>
+                                    <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                    <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                                    <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Liên hệ chúng tôi</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Thông tin liên hệ</a></li>
+                                    <li><a href="#">Trợ giúp</a></li>
+                                    <li><a href="#">Tuyển dụng</a></li>
+                                    <li><a href="#">Về chúng tôi</a></li>
+                                    <li><a href="#">Khách sạn</a></li>
+                                    <li><a href="#">Biệt thự</a></li>
+                                    <li><a href="#">Căn hộ</a></li>
+                                    <li><a href="#">Đặt vé</a></li>
+                                    <li><a href="#">Đưa đón sân bay</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Tải ứng dụng</h3>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm f-download">
+                                                <a href="#">
+                                                    <img src="~/Img/download-appstore.png" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm f-download">
+                                                <a href="#">
+                                                    <img src="~/Img/download-chplay.png" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer -->
+        <!-- Scripts -->
+        <script src="~/MyScript/slick.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.carousel-inner').slick({
+                    autoplay: true,
+                    arrows: true,
+                    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+                    nextArrow: '<button type="button" class="slick-next">Next</button>',
+                });
+            });
+        </script>
+        <!-- Scripts -->
+        @*@Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)*@
+        @if (Session["login"] != null)
+        {
+            <script>
+                alert("Tài khoản hoặc mật khẩu sai!")
+            </script>
+            Session.Remove("login");
+        }
+        @if (Session["register"] != null)
+        {
+            <script>
+                alert("Vui lòng nhập username khác!")
+            </script>
+            Session.Remove("register");
+        }
+        @if (Session["registerPass"] != null)
+        {
+            <script>
+                alert("Mật khẩu không trùng khớp!")
+            </script>
+            Session.Remove("registerPass");
+        }
+        @if (Session["BookHotel"] != null)
+        {
+            <script>
+                alert("Đăng nhập để đặt phòng!")
+            </script>
+            Session.Remove("BookHotel");
+        }
+        @if (Session["BookFlight"] != null)
+        {
+            <script>
+                alert("Đăng nhập để đặt vé!")
+            </script>
+            Session.Remove("BookFlight");
+        }
+        @if (Session["ManageCommentsFlight"] != null)
+        {
+            <script>
+                alert("Bạn không thể xóa bình luận vé của bạn!")
+            </script>
+            Session.Remove("ManageCommentsFlight");
+        }
+        @if (Session["ManageCommentsHotel"] != null)
+        {
+            <script>
+                alert("Bạn không thể xóa bình luận phòng của bạn!")
+            </script>
+            Session.Remove("ManageCommentsHotel");
+        }
+        @if (Session["RemoveCMT"] != null)
+        {
+            <script>
+                alert("Xóa bình luận thành công!")
+            </script>
+            Session.Remove("RemoveCMT");
+        }
+    </body>
+    
+</html>

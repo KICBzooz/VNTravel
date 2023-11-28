@@ -1,0 +1,1967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="webtraveldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accompany">
+          <Key>
+            <PropertyRef Name="Accompany_ID" />
+          </Key>
+          <Property Name="Accompany_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accompany_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Accompany_email" Type="varchar" MaxLength="30" />
+          <Property Name="Accompany_phone" Type="char" MaxLength="10" />
+          <Property Name="Accompany_typeid" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Accompany_Type">
+          <Key>
+            <PropertyRef Name="Typeid" />
+          </Key>
+          <Property Name="Typeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accompany_name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="30" />
+          <Property Name="account_role" Type="int" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bill_date" Type="datetime" />
+          <Property Name="Bill_type" Type="int" />
+          <Property Name="Bill_total" Type="int" />
+          <Property Name="ID_voucher" Type="int" />
+          <Property Name="ID_Payment" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ChatComment">
+          <Key>
+            <PropertyRef Name="CCM_ID" />
+          </Key>
+          <Property Name="CCM_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text_Comment" Type="nvarchar(max)" />
+          <Property Name="User_Comment" Type="varchar" MaxLength="30" />
+          <Property Name="CreateOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ChatReply">
+          <Key>
+            <PropertyRef Name="Reply_ID" />
+          </Key>
+          <Property Name="Reply_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text_Reply" Type="nvarchar(max)" />
+          <Property Name="CCM_ID" Type="int" />
+          <Property Name="CreateOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID_Comment" />
+          </Key>
+          <Property Name="ID_Comment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ticket_id" Type="int" />
+          <Property Name="Username" Type="nvarchar" MaxLength="30" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Room_number" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+          </Key>
+          <Property Name="Customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Customer_email" Type="varchar" MaxLength="30" />
+          <Property Name="Customer_phone" Type="char" MaxLength="10" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="DetailContract">
+          <Key>
+            <PropertyRef Name="ID_Contract" />
+            <PropertyRef Name="Admin_id" />
+            <PropertyRef Name="Accompany_ID" />
+          </Key>
+          <Property Name="ID_Contract" Type="int" Nullable="false" />
+          <Property Name="Admin_id" Type="int" Nullable="false" />
+          <Property Name="Accompany_ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" />
+          <Property Name="Content" Type="nvarchar" MaxLength="100" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Terms" Type="nvarchar" MaxLength="100" />
+          <Property Name="Price" Type="int" />
+          <Property Name="ID_Payment" Type="int" Nullable="false" />
+          <Property Name="Contract_percent" Type="float" />
+          <Property Name="Contract_status" Type="int" />
+        </EntityType>
+        <EntityType Name="DetailRoomBill">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+            <PropertyRef Name="Room_id" />
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Customer_id" Type="int" Nullable="false" />
+          <Property Name="Room_id" Type="int" Nullable="false" />
+          <Property Name="Check_in" Type="datetime" />
+          <Property Name="Check_out" Type="datetime" />
+          <Property Name="ID_service" Type="int" Nullable="false" />
+          <Property Name="Bill_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetailTicketBill">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+            <PropertyRef Name="Ticket_id" />
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Customer_id" Type="int" Nullable="false" />
+          <Property Name="Ticket_id" Type="int" Nullable="false" />
+          <Property Name="ID_service" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Bill_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListFavourite">
+          <Key>
+            <PropertyRef Name="ID_favourite" />
+          </Key>
+          <Property Name="ID_favourite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
+          <Property Name="Room_number" Type="int" />
+          <Property Name="Ticket_id" Type="int" />
+          <Property Name="Id_service" Type="int" />
+          <Property Name="status_fav" Type="bit" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID_Payment" />
+          </Key>
+          <Property Name="ID_Payment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" />
+          <Property Name="Content" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bank_number" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="ID_price" />
+          </Key>
+          <Property Name="ID_price" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accompany_ID" Type="int" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="applyDate" Type="datetime" />
+          <Property Name="price" Type="int" />
+        </EntityType>
+        <EntityType Name="Revenue">
+          <Key>
+            <PropertyRef Name="Id_Revunue" />
+          </Key>
+          <Property Name="Id_Revunue" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accompany_ID" Type="int" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_number" />
+          </Key>
+          <Property Name="Room_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_status" Type="int" />
+          <Property Name="Room_type" Type="int" />
+          <Property Name="Accompany_id" Type="int" />
+          <Property Name="Room_image" Type="varchar" MaxLength="1" />
+          <Property Name="Room_Quantily" Type="int" />
+          <Property Name="Location" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Room_Type">
+          <Key>
+            <PropertyRef Name="RoomTypeid" />
+          </Key>
+          <Property Name="RoomTypeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="room_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID_price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="ID_service_type" />
+          </Key>
+          <Property Name="ID_service_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_price" Type="int" />
+          <Property Name="Service_type_name" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Ticket_id" />
+          </Key>
+          <Property Name="Ticket_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ticket_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="ID_price" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Flight_Number" Type="int" />
+          <Property Name="Accompany_ID" Type="int" />
+          <Property Name="Ticket_image" Type="varchar" MaxLength="1" />
+          <Property Name="Ticket_Status" Type="int" />
+          <Property Name="Departure" Type="nvarchar(max)" />
+          <Property Name="destination" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TravelService">
+          <Key>
+            <PropertyRef Name="ID_service" />
+          </Key>
+          <Property Name="ID_service" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serviceName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ID_service_type" Type="int" />
+          <Property Name="Accompany_ID" Type="int" />
+          <Property Name="Service_Status" Type="int" />
+        </EntityType>
+        <EntityType Name="VNTravel">
+          <Key>
+            <PropertyRef Name="Admin_id" />
+          </Key>
+          <Property Name="Admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="ID_voucher" />
+          </Key>
+          <Property Name="ID_voucher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Voucher_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Voucher_percent" Type="float" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="ExpiredDate" Type="datetime" />
+          <Property Name="Quantily" Type="int" />
+          <Property Name="Accompany_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Accompany_AccompanyType">
+          <End Role="Accompany_Type" Type="Self.Accompany_Type" Multiplicity="0..1" />
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany_Type">
+              <PropertyRef Name="Typeid" />
+            </Principal>
+            <Dependent Role="Accompany">
+              <PropertyRef Name="Accompany_typeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accompany_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Accompany">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID_Payment" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ID_Payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Voucher">
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="ID_voucher" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ID_voucher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatComment_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ChatComment" Type="Self.ChatComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="ChatComment">
+              <PropertyRef Name="User_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReply_ChatComment">
+          <End Role="ChatComment" Type="Self.ChatComment" Multiplicity="0..1" />
+          <End Role="ChatReply" Type="Self.ChatReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatComment">
+              <PropertyRef Name="CCM_ID" />
+            </Principal>
+            <Dependent Role="ChatReply">
+              <PropertyRef Name="CCM_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID_Payment" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="ID_Payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_VNTravel">
+          <End Role="VNTravel" Type="Self.VNTravel" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VNTravel">
+              <PropertyRef Name="Admin_id" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="Admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_id" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Id_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Accompany_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="Room_Type" Type="Self.Room_Type" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room_Type">
+              <PropertyRef Name="RoomTypeid" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Room_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomType_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="1" />
+          <End Role="Room_Type" Type="Self.Room_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="Room_Type">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="TravelService">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_ServiceType">
+          <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="0..1" />
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceType">
+              <PropertyRef Name="ID_service_type" />
+            </Principal>
+            <Dependent Role="TravelService">
+              <PropertyRef Name="ID_service_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceType_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="ServiceType">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VNTravel_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="VNTravel" Type="Self.VNTravel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="VNTravel">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="webtraveldbModelStoreContainer">
+          <EntitySet Name="Accompany" EntityType="Self.Accompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accompany_Type" EntityType="Self.Accompany_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatComment" EntityType="Self.ChatComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatReply" EntityType="Self.ChatReply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailContract" EntityType="Self.DetailContract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailRoomBill" EntityType="Self.DetailRoomBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailTicketBill" EntityType="Self.DetailTicketBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListFavourite" EntityType="Self.ListFavourite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Revenue" EntityType="Self.Revenue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room_Type" EntityType="Self.Room_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceType" EntityType="Self.ServiceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TravelService" EntityType="Self.TravelService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VNTravel" EntityType="Self.VNTravel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accompany_AccompanyType" Association="Self.FK_Accompany_AccompanyType">
+            <End Role="Accompany_Type" EntitySet="Accompany_Type" />
+            <End Role="Accompany" EntitySet="Accompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accompany_Account" Association="Self.FK_Accompany_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Accompany" EntitySet="Accompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Payment" Association="Self.FK_Bill_Payment">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Voucher" Association="Self.FK_Bill_Voucher">
+            <End Role="Voucher" EntitySet="Voucher" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatComment_Account" Association="Self.FK_ChatComment_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ChatComment" EntitySet="ChatComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReply_ChatComment" Association="Self.FK_ChatReply_ChatComment">
+            <End Role="ChatComment" EntitySet="ChatComment" />
+            <End Role="ChatReply" EntitySet="ChatReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Room" Association="Self.FK_Comment_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Ticket" Association="Self.FK_Comment_Ticket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Accompany" Association="Self.FK_Contract_Accompany">
+            <End Role="Accompany" EntitySet="Accompany" />
+            <End Role="DetailContract" EntitySet="DetailContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Payment" Association="Self.FK_Contract_Payment">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="DetailContract" EntitySet="DetailContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_VNTravel" Association="Self.FK_Contract_VNTravel">
+            <End Role="VNTravel" EntitySet="VNTravel" />
+            <End Role="DetailContract" EntitySet="DetailContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Bill" Association="Self.FK_DetailRoom_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Customer" Association="Self.FK_DetailRoom_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Room" Association="Self.FK_DetailRoom_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Service" Association="Self.FK_DetailRoom_Service">
+            <End Role="TravelService" EntitySet="TravelService" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Bill" Association="Self.FK_DetailTicket_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Customer" Association="Self.FK_DetailTicket_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Service" Association="Self.FK_DetailTicket_Service">
+            <End Role="TravelService" EntitySet="TravelService" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Ticket" Association="Self.FK_DetailTicket_Ticket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Account" Association="Self.FK_ListFavourite_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ListFavourite" EntitySet="ListFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Room" Association="Self.FK_ListFavourite_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="ListFavourite" EntitySet="ListFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Service" Association="Self.FK_ListFavourite_Service">
+            <End Role="TravelService" EntitySet="TravelService" />
+            <End Role="ListFavourite" EntitySet="ListFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Ticket" Association="Self.FK_ListFavourite_Ticket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="ListFavourite" EntitySet="ListFavourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Accompany" Association="Self.FK_Price_Accompany">
+            <End Role="Accompany" EntitySet="Accompany" />
+            <End Role="Price" EntitySet="Price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Accompany" Association="Self.FK_Room_Accompany">
+            <End Role="Accompany" EntitySet="Accompany" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="Room_Type" EntitySet="Room_Type" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomType_Price" Association="Self.FK_RoomType_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Room_Type" EntitySet="Room_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_Accompany" Association="Self.FK_Service_Accompany">
+            <End Role="Accompany" EntitySet="Accompany" />
+            <End Role="TravelService" EntitySet="TravelService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_ServiceType" Association="Self.FK_Service_ServiceType">
+            <End Role="ServiceType" EntitySet="ServiceType" />
+            <End Role="TravelService" EntitySet="TravelService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceType_Price" Association="Self.FK_ServiceType_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="ServiceType" EntitySet="ServiceType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Accompany" Association="Self.FK_Ticket_Accompany">
+            <End Role="Accompany" EntitySet="Accompany" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Price" Association="Self.FK_Ticket_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VNTravel_Account" Association="Self.FK_VNTravel_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="VNTravel" EntitySet="VNTravel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="webtraveldbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Accompany">
+          <Key>
+            <PropertyRef Name="Accompany_ID" />
+          </Key>
+          <Property Name="Accompany_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accompany_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Accompany_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Accompany_phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Accompany_typeid" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accompany_Type" Relationship="Self.FK_Accompany_AccompanyType" FromRole="Accompany" ToRole="Accompany_Type" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Accompany_Account" FromRole="Accompany" ToRole="Account" />
+          <NavigationProperty Name="DetailContracts" Relationship="Self.FK_Contract_Accompany" FromRole="Accompany" ToRole="DetailContract" />
+          <NavigationProperty Name="Prices" Relationship="Self.FK_Price_Accompany" FromRole="Accompany" ToRole="Price" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_Accompany" FromRole="Accompany" ToRole="Room" />
+          <NavigationProperty Name="TravelServices" Relationship="Self.FK_Service_Accompany" FromRole="Accompany" ToRole="TravelService" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Accompany" FromRole="Accompany" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="Accompany_Type">
+          <Key>
+            <PropertyRef Name="Typeid" />
+          </Key>
+          <Property Name="Typeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accompany_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accompanies" Relationship="Self.FK_Accompany_AccompanyType" FromRole="Accompany_Type" ToRole="Accompany" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="account_role" Type="Int32" />
+          <NavigationProperty Name="Accompanies" Relationship="Self.FK_Accompany_Account" FromRole="Account" ToRole="Accompany" />
+          <NavigationProperty Name="ChatComments" Relationship="Self.FK_ChatComment_Account" FromRole="Account" ToRole="ChatComment" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
+          <NavigationProperty Name="ListFavourites" Relationship="Self.FK_ListFavourite_Account" FromRole="Account" ToRole="ListFavourite" />
+          <NavigationProperty Name="VNTravels" Relationship="Self.FK_VNTravel_Account" FromRole="Account" ToRole="VNTravel" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Bill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bill_date" Type="DateTime" Precision="3" />
+          <Property Name="Bill_type" Type="Int32" />
+          <Property Name="Bill_total" Type="Int32" />
+          <Property Name="ID_voucher" Type="Int32" />
+          <Property Name="ID_Payment" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK_Bill_Payment" FromRole="Bill" ToRole="Payment" />
+          <NavigationProperty Name="Voucher" Relationship="Self.FK_Bill_Voucher" FromRole="Bill" ToRole="Voucher" />
+          <NavigationProperty Name="DetailRoomBills" Relationship="Self.FK_DetailRoom_Bill" FromRole="Bill" ToRole="DetailRoomBill" />
+          <NavigationProperty Name="DetailTicketBills" Relationship="Self.FK_DetailTicket_Bill" FromRole="Bill" ToRole="DetailTicketBill" />
+        </EntityType>
+        <EntityType Name="ChatComment">
+          <Key>
+            <PropertyRef Name="CCM_ID" />
+          </Key>
+          <Property Name="CCM_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text_Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Comment" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_ChatComment_Account" FromRole="ChatComment" ToRole="Account" />
+          <NavigationProperty Name="ChatReplies" Relationship="Self.FK_ChatReply_ChatComment" FromRole="ChatComment" ToRole="ChatReply" />
+        </EntityType>
+        <EntityType Name="ChatReply">
+          <Key>
+            <PropertyRef Name="Reply_ID" />
+          </Key>
+          <Property Name="Reply_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text_Reply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CCM_ID" Type="Int32" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChatComment" Relationship="Self.FK_ChatReply_ChatComment" FromRole="ChatReply" ToRole="ChatComment" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID_Comment" />
+          </Key>
+          <Property Name="ID_Comment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ticket_id" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Room_number" Type="Int32" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_Comment_Room" FromRole="Comment" ToRole="Room" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_Comment_Ticket" FromRole="Comment" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+          </Key>
+          <Property Name="Customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
+          <NavigationProperty Name="DetailRoomBills" Relationship="Self.FK_DetailRoom_Customer" FromRole="Customer" ToRole="DetailRoomBill" />
+          <NavigationProperty Name="DetailTicketBills" Relationship="Self.FK_DetailTicket_Customer" FromRole="Customer" ToRole="DetailTicketBill" />
+        </EntityType>
+        <EntityType Name="DetailContract">
+          <Key>
+            <PropertyRef Name="ID_Contract" />
+            <PropertyRef Name="Admin_id" />
+            <PropertyRef Name="Accompany_ID" />
+          </Key>
+          <Property Name="ID_Contract" Type="Int32" Nullable="false" />
+          <Property Name="Admin_id" Type="Int32" Nullable="false" />
+          <Property Name="Accompany_ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Terms" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="ID_Payment" Type="Int32" Nullable="false" />
+          <Property Name="Contract_percent" Type="Double" />
+          <Property Name="Contract_status" Type="Int32" />
+          <NavigationProperty Name="Accompany" Relationship="Self.FK_Contract_Accompany" FromRole="DetailContract" ToRole="Accompany" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK_Contract_Payment" FromRole="DetailContract" ToRole="Payment" />
+          <NavigationProperty Name="VNTravel" Relationship="Self.FK_Contract_VNTravel" FromRole="DetailContract" ToRole="VNTravel" />
+        </EntityType>
+        <EntityType Name="DetailRoomBill">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+            <PropertyRef Name="Room_id" />
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Room_id" Type="Int32" Nullable="false" />
+          <Property Name="Check_in" Type="DateTime" Precision="3" />
+          <Property Name="Check_out" Type="DateTime" Precision="3" />
+          <Property Name="ID_service" Type="Int32" Nullable="false" />
+          <Property Name="Bill_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK_DetailRoom_Bill" FromRole="DetailRoomBill" ToRole="Bill" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_DetailRoom_Customer" FromRole="DetailRoomBill" ToRole="Customer" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_DetailRoom_Room" FromRole="DetailRoomBill" ToRole="Room" />
+          <NavigationProperty Name="TravelService" Relationship="Self.FK_DetailRoom_Service" FromRole="DetailRoomBill" ToRole="TravelService" />
+        </EntityType>
+        <EntityType Name="DetailTicketBill">
+          <Key>
+            <PropertyRef Name="Customer_id" />
+            <PropertyRef Name="Ticket_id" />
+            <PropertyRef Name="Bill_id" />
+          </Key>
+          <Property Name="Customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Ticket_id" Type="Int32" Nullable="false" />
+          <Property Name="ID_service" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Bill_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK_DetailTicket_Bill" FromRole="DetailTicketBill" ToRole="Bill" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_DetailTicket_Customer" FromRole="DetailTicketBill" ToRole="Customer" />
+          <NavigationProperty Name="TravelService" Relationship="Self.FK_DetailTicket_Service" FromRole="DetailTicketBill" ToRole="TravelService" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_DetailTicket_Ticket" FromRole="DetailTicketBill" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="ListFavourite">
+          <Key>
+            <PropertyRef Name="ID_favourite" />
+          </Key>
+          <Property Name="ID_favourite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Room_number" Type="Int32" />
+          <Property Name="Ticket_id" Type="Int32" />
+          <Property Name="Id_service" Type="Int32" />
+          <Property Name="status_fav" Type="Boolean" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_ListFavourite_Account" FromRole="ListFavourite" ToRole="Account" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_ListFavourite_Room" FromRole="ListFavourite" ToRole="Room" />
+          <NavigationProperty Name="TravelService" Relationship="Self.FK_ListFavourite_Service" FromRole="ListFavourite" ToRole="TravelService" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_ListFavourite_Ticket" FromRole="ListFavourite" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID_Payment" />
+          </Key>
+          <Property Name="ID_Payment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_number" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Payment" FromRole="Payment" ToRole="Bill" />
+          <NavigationProperty Name="DetailContracts" Relationship="Self.FK_Contract_Payment" FromRole="Payment" ToRole="DetailContract" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="ID_price" />
+          </Key>
+          <Property Name="ID_price" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accompany_ID" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="applyDate" Type="DateTime" Precision="3" />
+          <Property Name="price1" Type="Int32" />
+          <NavigationProperty Name="Accompany" Relationship="Self.FK_Price_Accompany" FromRole="Price" ToRole="Accompany" />
+          <NavigationProperty Name="Room_Type" Relationship="Self.FK_RoomType_Price" FromRole="Price" ToRole="Room_Type" />
+          <NavigationProperty Name="ServiceTypes" Relationship="Self.FK_ServiceType_Price" FromRole="Price" ToRole="ServiceType" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Price" FromRole="Price" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="Revenue">
+          <Key>
+            <PropertyRef Name="Id_Revunue" />
+          </Key>
+          <Property Name="Id_Revunue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accompany_ID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_number" />
+          </Key>
+          <Property Name="Room_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_status" Type="Int32" />
+          <Property Name="Room_type" Type="Int32" />
+          <Property Name="Accompany_id" Type="Int32" />
+          <Property Name="Room_image" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Room_Quantily" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accompany" Relationship="Self.FK_Room_Accompany" FromRole="Room" ToRole="Accompany" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Room" FromRole="Room" ToRole="Comment" />
+          <NavigationProperty Name="DetailRoomBills" Relationship="Self.FK_DetailRoom_Room" FromRole="Room" ToRole="DetailRoomBill" />
+          <NavigationProperty Name="ListFavourites" Relationship="Self.FK_ListFavourite_Room" FromRole="Room" ToRole="ListFavourite" />
+          <NavigationProperty Name="Room_Type1" Relationship="Self.FK_Room_RoomType" FromRole="Room" ToRole="Room_Type" />
+        </EntityType>
+        <EntityType Name="Room_Type">
+          <Key>
+            <PropertyRef Name="RoomTypeid" />
+          </Key>
+          <Property Name="RoomTypeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="room_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Price" Relationship="Self.FK_RoomType_Price" FromRole="Room_Type" ToRole="Price" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_RoomType" FromRole="Room_Type" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="ID_service_type" />
+          </Key>
+          <Property Name="ID_service_type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_price" Type="Int32" />
+          <Property Name="Service_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Price" Relationship="Self.FK_ServiceType_Price" FromRole="ServiceType" ToRole="Price" />
+          <NavigationProperty Name="TravelServices" Relationship="Self.FK_Service_ServiceType" FromRole="ServiceType" ToRole="TravelService" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Ticket_id" />
+          </Key>
+          <Property Name="Ticket_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ticket_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_price" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Flight_Number" Type="Int32" />
+          <Property Name="Accompany_ID" Type="Int32" />
+          <Property Name="Ticket_image" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Ticket_Status" Type="Int32" />
+          <Property Name="Departure" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accompany" Relationship="Self.FK_Ticket_Accompany" FromRole="Ticket" ToRole="Accompany" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Ticket" FromRole="Ticket" ToRole="Comment" />
+          <NavigationProperty Name="DetailTicketBills" Relationship="Self.FK_DetailTicket_Ticket" FromRole="Ticket" ToRole="DetailTicketBill" />
+          <NavigationProperty Name="ListFavourites" Relationship="Self.FK_ListFavourite_Ticket" FromRole="Ticket" ToRole="ListFavourite" />
+          <NavigationProperty Name="Price" Relationship="Self.FK_Ticket_Price" FromRole="Ticket" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="TravelService">
+          <Key>
+            <PropertyRef Name="ID_service" />
+          </Key>
+          <Property Name="ID_service" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serviceName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ID_service_type" Type="Int32" />
+          <Property Name="Accompany_ID" Type="Int32" />
+          <Property Name="Service_Status" Type="Int32" />
+          <NavigationProperty Name="Accompany" Relationship="Self.FK_Service_Accompany" FromRole="TravelService" ToRole="Accompany" />
+          <NavigationProperty Name="DetailRoomBills" Relationship="Self.FK_DetailRoom_Service" FromRole="TravelService" ToRole="DetailRoomBill" />
+          <NavigationProperty Name="DetailTicketBills" Relationship="Self.FK_DetailTicket_Service" FromRole="TravelService" ToRole="DetailTicketBill" />
+          <NavigationProperty Name="ListFavourites" Relationship="Self.FK_ListFavourite_Service" FromRole="TravelService" ToRole="ListFavourite" />
+          <NavigationProperty Name="ServiceType" Relationship="Self.FK_Service_ServiceType" FromRole="TravelService" ToRole="ServiceType" />
+        </EntityType>
+        <EntityType Name="VNTravel">
+          <Key>
+            <PropertyRef Name="Admin_id" />
+          </Key>
+          <Property Name="Admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_VNTravel_Account" FromRole="VNTravel" ToRole="Account" />
+          <NavigationProperty Name="DetailContracts" Relationship="Self.FK_Contract_VNTravel" FromRole="VNTravel" ToRole="DetailContract" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="ID_voucher" />
+          </Key>
+          <Property Name="ID_voucher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Voucher_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Voucher_percent" Type="Double" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+          <Property Name="Quantily" Type="Int32" />
+          <Property Name="Accompany_ID" Type="Int32" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Voucher" FromRole="Voucher" ToRole="Bill" />
+        </EntityType>
+        <Association Name="FK_Accompany_AccompanyType">
+          <End Role="Accompany_Type" Type="Self.Accompany_Type" Multiplicity="0..1" />
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany_Type">
+              <PropertyRef Name="Typeid" />
+            </Principal>
+            <Dependent Role="Accompany">
+              <PropertyRef Name="Accompany_typeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accompany_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Accompany">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Accompany_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="TravelService">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Accompany">
+          <End Role="Accompany" Type="Self.Accompany" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accompany">
+              <PropertyRef Name="Accompany_ID" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="Accompany_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatComment_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ChatComment" Type="Self.ChatComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="ChatComment">
+              <PropertyRef Name="User_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VNTravel_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="VNTravel" Type="Self.VNTravel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="VNTravel">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID_Payment" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ID_Payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Voucher">
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="ID_voucher" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ID_voucher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_id" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReply_ChatComment">
+          <End Role="ChatComment" Type="Self.ChatComment" Multiplicity="0..1" />
+          <End Role="ChatReply" Type="Self.ChatReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatComment">
+              <PropertyRef Name="CCM_ID" />
+            </Principal>
+            <Dependent Role="ChatReply">
+              <PropertyRef Name="CCM_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Payment">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="ID_Payment" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="ID_Payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_VNTravel">
+          <End Role="VNTravel" Type="Self.VNTravel" Multiplicity="1" />
+          <End Role="DetailContract" Type="Self.DetailContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VNTravel">
+              <PropertyRef Name="Admin_id" />
+            </Principal>
+            <Dependent Role="DetailContract">
+              <PropertyRef Name="Admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="Room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailRoom_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="1" />
+          <End Role="DetailRoomBill" Type="Self.DetailRoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="DetailRoomBill">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailTicket_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="DetailTicketBill" Type="Self.DetailTicketBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="DetailTicketBill">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_number" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Service">
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TravelService">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Id_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListFavourite_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="ListFavourite" Type="Self.ListFavourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="Ticket_id" />
+            </Principal>
+            <Dependent Role="ListFavourite">
+              <PropertyRef Name="Ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomType_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="1" />
+          <End Role="Room_Type" Type="Self.Room_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="Room_Type">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceType_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="ServiceType">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_price" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="ID_price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="Room_Type" Type="Self.Room_Type" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room_Type">
+              <PropertyRef Name="RoomTypeid" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Room_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_ServiceType">
+          <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="0..1" />
+          <End Role="TravelService" Type="Self.TravelService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceType">
+              <PropertyRef Name="ID_service_type" />
+            </Principal>
+            <Dependent Role="TravelService">
+              <PropertyRef Name="ID_service_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="webtraveldbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accompanies" EntityType="Self.Accompany" />
+          <EntitySet Name="Accompany_Type" EntityType="Self.Accompany_Type" />
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="ChatComments" EntityType="Self.ChatComment" />
+          <EntitySet Name="ChatReplies" EntityType="Self.ChatReply" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DetailContracts" EntityType="Self.DetailContract" />
+          <EntitySet Name="DetailRoomBills" EntityType="Self.DetailRoomBill" />
+          <EntitySet Name="DetailTicketBills" EntityType="Self.DetailTicketBill" />
+          <EntitySet Name="ListFavourites" EntityType="Self.ListFavourite" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Prices" EntityType="Self.Price" />
+          <EntitySet Name="Revenues" EntityType="Self.Revenue" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Room_Type" EntityType="Self.Room_Type" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceType" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="TravelServices" EntityType="Self.TravelService" />
+          <EntitySet Name="VNTravels" EntityType="Self.VNTravel" />
+          <EntitySet Name="Vouchers" EntityType="Self.Voucher" />
+          <AssociationSet Name="FK_Accompany_AccompanyType" Association="Self.FK_Accompany_AccompanyType">
+            <End Role="Accompany_Type" EntitySet="Accompany_Type" />
+            <End Role="Accompany" EntitySet="Accompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accompany_Account" Association="Self.FK_Accompany_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Accompany" EntitySet="Accompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Accompany" Association="Self.FK_Contract_Accompany">
+            <End Role="Accompany" EntitySet="Accompanies" />
+            <End Role="DetailContract" EntitySet="DetailContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Accompany" Association="Self.FK_Price_Accompany">
+            <End Role="Accompany" EntitySet="Accompanies" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Accompany" Association="Self.FK_Room_Accompany">
+            <End Role="Accompany" EntitySet="Accompanies" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_Accompany" Association="Self.FK_Service_Accompany">
+            <End Role="Accompany" EntitySet="Accompanies" />
+            <End Role="TravelService" EntitySet="TravelServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Accompany" Association="Self.FK_Ticket_Accompany">
+            <End Role="Accompany" EntitySet="Accompanies" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatComment_Account" Association="Self.FK_ChatComment_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="ChatComment" EntitySet="ChatComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Account" Association="Self.FK_ListFavourite_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="ListFavourite" EntitySet="ListFavourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VNTravel_Account" Association="Self.FK_VNTravel_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="VNTravel" EntitySet="VNTravels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Payment" Association="Self.FK_Bill_Payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Voucher" Association="Self.FK_Bill_Voucher">
+            <End Role="Voucher" EntitySet="Vouchers" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Bill" Association="Self.FK_DetailRoom_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Bill" Association="Self.FK_DetailTicket_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReply_ChatComment" Association="Self.FK_ChatReply_ChatComment">
+            <End Role="ChatComment" EntitySet="ChatComments" />
+            <End Role="ChatReply" EntitySet="ChatReplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Room" Association="Self.FK_Comment_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Ticket" Association="Self.FK_Comment_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Customer" Association="Self.FK_DetailRoom_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Customer" Association="Self.FK_DetailTicket_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Payment" Association="Self.FK_Contract_Payment">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="DetailContract" EntitySet="DetailContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_VNTravel" Association="Self.FK_Contract_VNTravel">
+            <End Role="VNTravel" EntitySet="VNTravels" />
+            <End Role="DetailContract" EntitySet="DetailContracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Room" Association="Self.FK_DetailRoom_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRoom_Service" Association="Self.FK_DetailRoom_Service">
+            <End Role="TravelService" EntitySet="TravelServices" />
+            <End Role="DetailRoomBill" EntitySet="DetailRoomBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Service" Association="Self.FK_DetailTicket_Service">
+            <End Role="TravelService" EntitySet="TravelServices" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailTicket_Ticket" Association="Self.FK_DetailTicket_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="DetailTicketBill" EntitySet="DetailTicketBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Room" Association="Self.FK_ListFavourite_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="ListFavourite" EntitySet="ListFavourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Service" Association="Self.FK_ListFavourite_Service">
+            <End Role="TravelService" EntitySet="TravelServices" />
+            <End Role="ListFavourite" EntitySet="ListFavourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListFavourite_Ticket" Association="Self.FK_ListFavourite_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="ListFavourite" EntitySet="ListFavourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomType_Price" Association="Self.FK_RoomType_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="Room_Type" EntitySet="Room_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceType_Price" Association="Self.FK_ServiceType_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="ServiceType" EntitySet="ServiceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Price" Association="Self.FK_Ticket_Price">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="Room_Type" EntitySet="Room_Type" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_ServiceType" Association="Self.FK_Service_ServiceType">
+            <End Role="ServiceType" EntitySet="ServiceTypes" />
+            <End Role="TravelService" EntitySet="TravelServices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="webtraveldbModelStoreContainer" CdmEntityContainer="webtraveldbEntities">
+          <EntitySetMapping Name="Accompanies">
+            <EntityTypeMapping TypeName="webtraveldbModel.Accompany">
+              <MappingFragment StoreEntitySet="Accompany">
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="Accompany_name" ColumnName="Accompany_name" />
+                <ScalarProperty Name="Accompany_email" ColumnName="Accompany_email" />
+                <ScalarProperty Name="Accompany_phone" ColumnName="Accompany_phone" />
+                <ScalarProperty Name="Accompany_typeid" ColumnName="Accompany_typeid" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accompany_Type">
+            <EntityTypeMapping TypeName="webtraveldbModel.Accompany_Type">
+              <MappingFragment StoreEntitySet="Accompany_Type">
+                <ScalarProperty Name="Typeid" ColumnName="Typeid" />
+                <ScalarProperty Name="accompany_name" ColumnName="accompany_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="webtraveldbModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="account_role" ColumnName="account_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="webtraveldbModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="Bill_id" ColumnName="Bill_id" />
+                <ScalarProperty Name="Bill_date" ColumnName="Bill_date" />
+                <ScalarProperty Name="Bill_type" ColumnName="Bill_type" />
+                <ScalarProperty Name="Bill_total" ColumnName="Bill_total" />
+                <ScalarProperty Name="ID_voucher" ColumnName="ID_voucher" />
+                <ScalarProperty Name="ID_Payment" ColumnName="ID_Payment" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatComments">
+            <EntityTypeMapping TypeName="webtraveldbModel.ChatComment">
+              <MappingFragment StoreEntitySet="ChatComment">
+                <ScalarProperty Name="CCM_ID" ColumnName="CCM_ID" />
+                <ScalarProperty Name="Text_Comment" ColumnName="Text_Comment" />
+                <ScalarProperty Name="User_Comment" ColumnName="User_Comment" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatReplies">
+            <EntityTypeMapping TypeName="webtraveldbModel.ChatReply">
+              <MappingFragment StoreEntitySet="ChatReply">
+                <ScalarProperty Name="Reply_ID" ColumnName="Reply_ID" />
+                <ScalarProperty Name="Text_Reply" ColumnName="Text_Reply" />
+                <ScalarProperty Name="CCM_ID" ColumnName="CCM_ID" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="webtraveldbModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="ID_Comment" ColumnName="ID_Comment" />
+                <ScalarProperty Name="Ticket_id" ColumnName="Ticket_id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Room_number" ColumnName="Room_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="webtraveldbModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Customer_name" ColumnName="Customer_name" />
+                <ScalarProperty Name="Customer_email" ColumnName="Customer_email" />
+                <ScalarProperty Name="Customer_phone" ColumnName="Customer_phone" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailContracts">
+            <EntityTypeMapping TypeName="webtraveldbModel.DetailContract">
+              <MappingFragment StoreEntitySet="DetailContract">
+                <ScalarProperty Name="ID_Contract" ColumnName="ID_Contract" />
+                <ScalarProperty Name="Admin_id" ColumnName="Admin_id" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Terms" ColumnName="Terms" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ID_Payment" ColumnName="ID_Payment" />
+                <ScalarProperty Name="Contract_percent" ColumnName="Contract_percent" />
+                <ScalarProperty Name="Contract_status" ColumnName="Contract_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailRoomBills">
+            <EntityTypeMapping TypeName="webtraveldbModel.DetailRoomBill">
+              <MappingFragment StoreEntitySet="DetailRoomBill">
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Room_id" ColumnName="Room_id" />
+                <ScalarProperty Name="Check_in" ColumnName="Check_in" />
+                <ScalarProperty Name="Check_out" ColumnName="Check_out" />
+                <ScalarProperty Name="ID_service" ColumnName="ID_service" />
+                <ScalarProperty Name="Bill_id" ColumnName="Bill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailTicketBills">
+            <EntityTypeMapping TypeName="webtraveldbModel.DetailTicketBill">
+              <MappingFragment StoreEntitySet="DetailTicketBill">
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Ticket_id" ColumnName="Ticket_id" />
+                <ScalarProperty Name="ID_service" ColumnName="ID_service" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Bill_id" ColumnName="Bill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListFavourites">
+            <EntityTypeMapping TypeName="webtraveldbModel.ListFavourite">
+              <MappingFragment StoreEntitySet="ListFavourite">
+                <ScalarProperty Name="ID_favourite" ColumnName="ID_favourite" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Room_number" ColumnName="Room_number" />
+                <ScalarProperty Name="Ticket_id" ColumnName="Ticket_id" />
+                <ScalarProperty Name="Id_service" ColumnName="Id_service" />
+                <ScalarProperty Name="status_fav" ColumnName="status_fav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="webtraveldbModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="ID_Payment" ColumnName="ID_Payment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Bank_number" ColumnName="Bank_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="webtraveldbModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="ID_price" ColumnName="ID_price" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="applyDate" ColumnName="applyDate" />
+                <ScalarProperty Name="price1" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Revenues">
+            <EntityTypeMapping TypeName="webtraveldbModel.Revenue">
+              <MappingFragment StoreEntitySet="Revenue">
+                <ScalarProperty Name="Id_Revunue" ColumnName="Id_Revunue" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="webtraveldbModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Room_number" ColumnName="Room_number" />
+                <ScalarProperty Name="Room_status" ColumnName="Room_status" />
+                <ScalarProperty Name="Room_type" ColumnName="Room_type" />
+                <ScalarProperty Name="Accompany_id" ColumnName="Accompany_id" />
+                <ScalarProperty Name="Room_image" ColumnName="Room_image" />
+                <ScalarProperty Name="Room_Quantily" ColumnName="Room_Quantily" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Room_Type">
+            <EntityTypeMapping TypeName="webtraveldbModel.Room_Type">
+              <MappingFragment StoreEntitySet="Room_Type">
+                <ScalarProperty Name="RoomTypeid" ColumnName="RoomTypeid" />
+                <ScalarProperty Name="room_name" ColumnName="room_name" />
+                <ScalarProperty Name="ID_price" ColumnName="ID_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTypes">
+            <EntityTypeMapping TypeName="webtraveldbModel.ServiceType">
+              <MappingFragment StoreEntitySet="ServiceType">
+                <ScalarProperty Name="ID_service_type" ColumnName="ID_service_type" />
+                <ScalarProperty Name="ID_price" ColumnName="ID_price" />
+                <ScalarProperty Name="Service_type_name" ColumnName="Service_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="webtraveldbModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="Ticket_id" ColumnName="Ticket_id" />
+                <ScalarProperty Name="Ticket_name" ColumnName="Ticket_name" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ID_price" ColumnName="ID_price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Flight_Number" ColumnName="Flight_Number" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="Ticket_image" ColumnName="Ticket_image" />
+                <ScalarProperty Name="Ticket_Status" ColumnName="Ticket_Status" />
+                <ScalarProperty Name="Departure" ColumnName="Departure" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TravelServices">
+            <EntityTypeMapping TypeName="webtraveldbModel.TravelService">
+              <MappingFragment StoreEntitySet="TravelService">
+                <ScalarProperty Name="ID_service" ColumnName="ID_service" />
+                <ScalarProperty Name="serviceName" ColumnName="serviceName" />
+                <ScalarProperty Name="ID_service_type" ColumnName="ID_service_type" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+                <ScalarProperty Name="Service_Status" ColumnName="Service_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VNTravels">
+            <EntityTypeMapping TypeName="webtraveldbModel.VNTravel">
+              <MappingFragment StoreEntitySet="VNTravel">
+                <ScalarProperty Name="Admin_id" ColumnName="Admin_id" />
+                <ScalarProperty Name="Admin_name" ColumnName="Admin_name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="webtraveldbModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="ID_voucher" ColumnName="ID_voucher" />
+                <ScalarProperty Name="Voucher_name" ColumnName="Voucher_name" />
+                <ScalarProperty Name="Voucher_percent" ColumnName="Voucher_percent" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+                <ScalarProperty Name="Quantily" ColumnName="Quantily" />
+                <ScalarProperty Name="Accompany_ID" ColumnName="Accompany_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

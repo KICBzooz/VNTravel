@@ -1,0 +1,236 @@
+﻿@model VNTravel.Models.DetailContract
+
+@{
+    ViewBag.Title = "ViewDetailContract";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+    VNTravel.Models.WebtraveldbEntities db = new VNTravel.Models.WebtraveldbEntities();
+    var info = Session["ContractData"] as VNTravel.Models.Accompany;
+}
+<div class="main-panel" style="width:100%">
+    <div class="content-wrapper">
+        <div class="row" style="width:900px">
+            <div class="card card-rounded">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">Info Contract</h4>
+                            <p class="card-subtitle card-subtitle-dash">Input infamation of contract</p>
+
+                        </div>
+                        <div>
+                            <button @*onclick="location.href='@Url.Action("themtaikhoan", "admin")';"*@
+                                    onclick="alert('Tạo thông tin đối tác trước!');"
+                                    class="btn btn-info btn-fw text-white mb-0 me-0"
+                                    type="button">
+                                Add Account
+                            </button>
+                        </div>
+                    </div>
+                    <section class="mb-4">
+
+                        <!--Section heading-->
+                        <h2 class="h1-responsive font-weight-bold text-center my-4">Contract</h2>
+                        <!--Section description-->
+                        <p class="text-center w-responsive mx-auto mb-5">
+                            Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+                            a matter of hours to help you.
+                        </p>
+
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-9 mb-md-0 mb-5">
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputUsername1">Id Contract</label>
+                                            <input type="text" class="form-control" id="ID_Contract" name="ID_Contract" placeholder="" value="@Model.ID_Contract">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputUsername1">Id Company</label>
+                                            <input type="text" class="form-control" id="Accompany_ID" name="Accompany_ID" placeholder="" value="@info.Accompany_ID">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputUsername1">Name Company</label>
+                                            <input type="text" class="form-control" value="@info.Accompany_name">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputUsername1">Date start contract</label>
+                                            <input type="date" class="form-control" id="StartDate" name="StartDate" placeholder="" value="@Model.StartDate">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputUsername1">Date end contract</label>
+                                            <input type="date" class="form-control" id="EndDate" name="EndDate" placeholder="" value="@Model.EndDate">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputUsername1">Name Contract</label>
+                                            <input type="text" class="form-control" id="Title" name="Title" placeholder="" value="@Model.Title">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputUsername1">Content Contract</label>
+                                            <textarea style="height:120px" type="text" id="Content" name="Content" class="form-control md-textarea">@Model.Content</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputUsername1">Terms Contract</label>
+                                            <textarea style="height:150px" type="text" id="Terms" name="Terms" class="form-control md-textarea">@Model.Terms</textarea>
+                                        </div>
+                                    </div>
+
+                                    <!--Grid row-->
+
+
+                                    <div class="status"></div>
+                                </div>
+                                <!--Grid column-->
+                                <!--Grid column-->
+                                <div class="col-md-3 text-center">
+                                    <div class="list-unstyled mb-0">
+                                        <div class="mb-2">
+                                            <label>@Model.VNTravel.Admin_name</label>
+                                            <input type="text" class="form-control" id="Admin_id" name="Admin_id" placeholder="" value="1" hidden>
+                                            <input type="text" class="form-control" id="ID_Payment" name="ID_Payment" placeholder="" value="1" hidden>
+                                        </div>
+                                        <div>
+                                            <p>+ 01 234 567 89</p>
+                                        </div>
+                                        <div>
+                                            <p>contact@mdbootstrap.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Price Contract</label>
+                                            <input type="text" class="form-control" id="Price" name="Price" placeholder="" value="@Model.Price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Contract Percent</label>
+                                            <input type="text" class="form-control" id="Contract_percent" name="Contract_percent" placeholder="" value="@Model.Contract_percent">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-start text-md-left">
+                                <button onclick="location.href='@Url.Action("UpdateAccompany", "admin",new {@ID = Model.Accompany_ID})';" class="btn btn-primary btn-fw">Trở Về</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+@*<h2>ViewDetailContract</h2>
+
+<div>
+    <h4>DetailContract</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Terms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Terms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contract_percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contract_percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contract_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contract_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accompany.Accompany_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accompany.Accompany_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Payment.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Payment.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VNTravel.Admin_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VNTravel.Admin_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

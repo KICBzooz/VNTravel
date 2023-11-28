@@ -1,0 +1,99 @@
+﻿@model List<VNTravel.Models.TravelService>
+
+@{
+    ViewBag.Title = "Serivce";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .datepicker {
+        /* Nếu bạn có class "datepicker" để tùy chỉnh kiểu cho input date, bạn có thể thêm kiểu cho nó ở đây */
+    }
+</style>
+
+@using (Html.BeginForm("SelectedService", "Flight", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+            </td>
+            <td>
+                Tên Dịch Vụ
+            </td>
+            <td>
+                Giá
+            </td>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+
+            <tr>
+                <td>
+                    @Html.HiddenFor(model => model[i].ID_service)
+                    @Html.CheckBoxFor(model => model[i].IsSelected)
+                </td>
+                <td>
+                    @Model[i].serviceName
+                </td>
+                <td>
+                    @if (Model[i].ServiceType != null && Model[i].ServiceType.Price != null)
+                    {
+                        @Model[i].ServiceType.Price.price1
+                    }
+                    else
+                    {
+                        <span class="text-danger">N/A</span>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <label for="voucher"><b>Voucher</b></label>
+    <input type="text" name="voucher" placeholder="Nhập tên voucher">
+    @*<br />
+        <label for="voucher"><b>Ngày nhận phòng</b></label>
+        <input class="datepicker" type="date" name="begin" required>
+        <br />
+        <label for="voucher"><b>Ngày trả phòng</b></label>
+        <input class="datepicker" type="date" name="end" required>*@
+    <br />
+    <input type="submit" value="Tiếp tục" />
+}

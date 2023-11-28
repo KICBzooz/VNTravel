@@ -1,0 +1,103 @@
+﻿@model VNTravel.Models.Bill
+
+@{
+    ViewBag.Title = "ViewBillTicket";
+    Layout = "~/Views/Shared/_LayoutBill.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+<style>
+    h1 {
+        margin: 40px 0;
+    }
+
+    .content_hd h1, .content_hd h2 {
+        text-align: center;
+    }
+
+    .maint_hd {
+        display: flex;
+        justify-content: center;
+    }
+
+    .content_hd {
+        width: 60%;
+        border: 1px solid gray;
+        /* background-color:aquamarine; */
+        text-align: left;
+    }
+
+    .div_1, .div_2 {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: -10px;
+        margin-top: -10px;
+    }
+
+    p {
+        font-size: 16px;
+        margin: 10px 20px;
+    }
+
+    table, tr, td, th {
+        border: 1px solid gray;
+    }
+
+    table {
+        margin: 10px 20px;
+        width: 96%;
+    }
+
+    hr {
+        width: 70%;
+        margin-top: 20px;
+    }
+
+
+    .dshd a {
+        font-size: 18px;
+        color: black;
+        text-decoration: none;
+    }
+
+        .dshd a:hover {
+            text-decoration: underline;
+        }
+
+    .ma_sp {
+        max-width: 20px;
+    }
+
+    .ten_sp {
+        max-width: 150px;
+    }
+</style>
+@*<p class="dshd">
+        <i class="fa-solid fa-arrow-left"></i>@Html.ActionLink("Về Danh Sách Hóa Đơn", "QLDonHang")
+    </p>*@
+@using (Html.BeginForm("ViewBill", "Home", FormMethod.Get))
+{
+    <div class="maint_hd">
+        <div class="content_hd">
+            <h1>VNTravel</h1>
+            <div class="div_1">
+                <p>Website: VNTravel.com</p>
+                <p>Số Hóa Đơn: @Html.DisplayFor(model => model.Bill_id)</p>
+            </div>
+            <p>Địa Chỉ: 828 Sư Vạn Hạnh, Q10 - Tp.HCM</p>
+            <p>SĐT: 19001009</p>
+            <hr>
+            <h2>Đơn Hàng</h2>
+            <p>Tên Khách Hàng: @ViewBag.Name</p>
+            <p>Email: @ViewBag.Email</p>
+            <p>SĐT Khách Hàng: @ViewBag.Sdt</p>
+            <p>Ngày Đặt: @Html.DisplayFor(model => model.Bill_date)</p>
+            <p>Số Chuyến Bay: @ViewBag.Ticket</p>
+            <p>Check In: @ViewBag.Checkin</p>
+            <p>Check Out: @ViewBag.Checkout</p>
+            <p>Dịch Vụ: @ViewBag.Service</p>
+            <p class="total_money">Tổng Tiền : @Html.DisplayFor(model => model.Bill_total)</p>
+        </div>
+    </div>
+}
+

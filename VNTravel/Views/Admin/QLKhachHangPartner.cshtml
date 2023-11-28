@@ -1,0 +1,113 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<VNTravel.Models.Customer>
+
+@{
+    ViewBag.Title = "QLKhachHangPartner";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="~/CSSQLKH/script_js.js"></script>
+<link href="~/CSSQLKH/style.css" rel="stylesheet" />
+<body>
+    <style>
+        thead, tbody, tfoot, tr, td, th {
+            border-style: none !important;
+        }
+
+        .size_search {
+            height: 42px !important;
+            width: 42px !important;
+        }
+
+        .table__header .input-group {
+            width: 35%;
+            height: 100%;
+            background-color: #fff5;
+            padding: 0 0.8rem;
+            border-radius: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+            align-content: stretch;
+            flex-wrap: nowrap;
+        }
+    </style>
+    <main class="table">
+        <section class="table__header">
+            <h1>Quản Lý Khách Hàng  </h1>
+            <div class="input-group">
+                <input type="search" placeholder="Nhập dữ liệu..." class="search">
+                <img src="~/CSSQLKH/images/search.png" alt="" class="size_search">
+            </div>
+            <div class="export__file">
+                <label for="export-file" class="export__file-btn" title="Export File"></label>
+                <input type="checkbox" id="export-file">
+                <div class="export__file-options">
+                    <label>Export As &nbsp; &#10140;</label>
+                    @*<label for="export-file" id="toPDF">PDF <img src="~/CSSQLKH/images/pdf.png" alt=""></label>
+                    <label for="export-file" id="toJSON">JSON <img src="~/CSSQLKH/images/json.png" alt=""></label>
+                    <label for="export-file" id="toCSV">CSV <img src="~/CSSQLKH/images/csv.png" alt=""></label>*@
+                    <label for="export-file" id="toEXCEL">EXCEL <img src="~/CSSQLKH/images/excel.png" alt=""></label>
+
+                </div>
+            </div>
+        </section>
+        <section class="table__body">
+            <table id="customers_table">
+                <thead>
+                    <tr>
+                        <th>
+                            Id<span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Tên Khách Hàng<span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Email Khách Hàng<span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Số Điện Thoại Khách Hàng<span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Tài Khoản Khách Hàng<span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        @*<th></th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer_id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer_email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer_phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Username)
+                            </td>
+                            <!--<td>
+                                Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                Html.ActionLink("Xem thông tin", "ViewBill", new {-->
+                            @*id = item.Customer_id*@
+                            <!--}) |
+                                Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            </td>-->
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+

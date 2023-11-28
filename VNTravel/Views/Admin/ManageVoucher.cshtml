@@ -1,0 +1,139 @@
+﻿@model IEnumerable<VNTravel.Models.Voucher>
+
+@{
+    ViewBag.Title = "ManageVoucher";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+    VNTravel.Models.WebtraveldbEntities db = new VNTravel.Models.WebtraveldbEntities();
+
+}
+<div class="main-panel" style="width:100%">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="card card-rounded">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">List Voucher</h4>
+                            <p class="card-subtitle card-subtitle-dash">The flight to everywhere</p>
+
+                        </div>
+                        @*<div>
+                                <button onclick="location.href='@Url.Action("AddService", "airline")';" class="btn btn-info btn-fw text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i> Thêm dịch vụ</button>
+                            </div>*@
+                    </div>
+                    <form class="row" action="~/room/manageprice">
+                        <i class="mb-2 icon-search"></i>
+                        <div class="col-10">
+                            <input type="text"
+                                   class="form-control "
+                                   id="search"
+                                   name="search"
+                                   placeholder="Search..."
+                                   value="@ViewBag.Search" />
+                        </div>
+                        <div class="col-2">
+                            <button class="nav-link btn btn-info btn-fw" type="submit">
+                                Tìm Kiếm
+                            </button>
+                        </div>
+
+                        <div id="defaultFormControlHelp" class="form-text">
+                            <h4 class="text-danger p-1">@ViewBag.Error</h4>
+                            Vui lòng nhậm thông tin chính xác
+                        </div>
+                    </form>
+
+                    <div class="table-responsive  mt-1">
+                        <table class="table select-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">
+                                        Voucher ID
+                                    </th>
+                                    <th class="col-4">Name Voucher</th>
+                                    <th class="col-2">Percent and Quantity</th>
+                                    <th class="col-2">Apply date</th>
+                                    <th class="col-2">Expiration date</th>
+                                    <th class="col-2">AccompanyType</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            Voucher_ID @item.ID_voucher
+                                        </td>
+                                        <td>
+                                            <div class="d-flex ">
+                                                @*<img src="" alt="">*@
+                                                <h6 class="">@item.Voucher_name</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex ">
+                                                <div>
+                                                    <h6>Giảm giá: @item.Voucher_percent %</h6>
+                                                    <p>Còn: @item.Quantily</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.BeginDate
+                                        </td>
+                                        <td>
+                                            @item.ExpiredDate
+                                        </td>
+                                        <td>
+                                            <button onclick="location.href='@Url.Action("DeletePrice", "room", new {@ID=item.ID_voucher})';" type="button" class="btn btn-danger ">Ẩn</button>
+                                            @*onclick="location.href='@Url.Action("", "")';"*@
+                                        </td>
+                                    </tr>
+                                }
+                                <!--<tr>
+                                    <td>
+                                        Service_ID AUTO <form action="~/room/addvoucher" method="post" id="addform"></form>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex ">-->
+                                            @*<img src="" alt="logo">*@
+                                            <!--<div style="width:100%">
+                                                <input form="addform" id="Accompany_ID" name="Accompany_ID" value="@Session["AccompanyID"]" placeholder="" hidden />
+                                                <input class="form-control" form="addform" id="Voucher_name" name="Voucher_name" placeholder="Name Voucher" required />
+                                                <p>Here is Input</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input class="form-control mb-1" form="addform" id="Voucher_percent" name="Voucher_percent" placeholder="Percent" required />
+                                        <input class="form-control" form="addform" id="Quantily" name="Quantily" placeholder="Quantity" required />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" form="addform" type="date" id="BeginDate" name="BeginDate" />
+                                        <p>Here is apply date</p>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" form="addform" type="date" id="ExpiredDate" name="ExpiredDate" />
+                                        <p>Here is expried date</p>
+                                    </td>
+                                    <td>
+                                        <button form="addform" type="button" class="btn btn-info btn-fw " onclick="document.getElementById('addform').submit()">Thêm</button>
+                                    </td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
