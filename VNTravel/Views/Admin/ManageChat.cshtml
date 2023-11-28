@@ -1,0 +1,146 @@
+﻿@model IEnumerable<VNTravel.Models.ChatComment>
+
+@{
+    ViewBag.Title = "ManageChat";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+    VNTravel.Models.WebtraveldbEntities db = new VNTravel.Models.WebtraveldbEntities();
+}
+<div class="main-panel " style="width:100%">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="card card-rounded">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">List Contracter</h4>
+                            <p class="card-subtitle card-subtitle-dash">The community develops together</p>
+
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="messaging">
+                            <div class="inbox_msg">
+                                <div class="inbox_people">
+                                    <div class="headind_srch">
+                                        <div class="recent_heading">
+                                            <h4>Recent</h4>
+                                        </div>
+                                        <div class="srch_bar">
+                                            <div class="stylish-input-group">
+                                                <input type="text" class="search-bar" placeholder="Search">
+                                                <span class="input-group-addon">
+                                                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inbox_chat ">
+                                        @foreach (var item in Model)
+                                        {
+                                           
+                                            if (item == Model.First())
+                                            {
+
+                                                <button class="btn btn-primary btn-sm tablinks " onclick="openCity(event, '@item.Account.Username')" id="defaultOpen" hidden>Go</button>
+                                            }
+                                            else
+                                            {
+                                                <div class=" chat_list">
+                                                    <div class="chat_people">
+                                                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                                        <div class="chat_ib row">
+                                                            <div class="col-10">
+                                                                <h5>@item.User_Comment <span class="chat_date">@item.CreateOn</span></h5>
+                                                                <p>
+                                                                    Có tin nhắn mới
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-2 ">
+                                                                <button class="btn btn-primary btn-sm tablinks" onclick="openCity(event, '@item.Account.Username')">Go</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
+                                    </div>
+                                </div>
+                                @foreach (var item in Model)
+                                {
+                                    var list = db.ChatComments.Where(m => m.User_Comment == item.User_Comment).ToList();
+                                    <div class="tabcontent mesgs" id="@item.Account.Username">
+                                        <div class="msg_history">
+                                            <header class="msger-header">
+                                            </header>
+                                            @foreach (var comment in list)
+                                            {
+                                                <div class="incoming_msg">
+                                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                                    <div class="received_msg">
+                                                        <div class="received_withd_msg ">
+                                                            <p>
+                                                                @comment.Text_Comment
+                                                            </p>
+                                                            <span class="time_date"> @comment.CreateOn</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                foreach (var reply in comment.ChatReplies)
+                                                {
+                                                    <div class="outgoing_msg">
+                                                        <div class="sent_msg">
+                                                            <p>
+                                                                @reply.Text_Reply
+                                                            </p>
+                                                            <span class="time_date"> @item.CreateOn</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <form class="type_msg" action="~/admin/SendReply" method="post">
+                                            <div class="input_msg_write">
+                                                <input type="text" class="write_msg" id="Text_Reply" name="Text_Reply" placeholder="Input a message" />
+                                                <input type="text" class="write_msg" id="CCM_ID" name="CCM_ID" value="@item.CCM_ID" hidden/>
+                                                <button class="msg_send_btn" type="submit"><i class="mdi mdi-apple-keyboard-caps" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+<link href="~/CSS/Chat/Chat_2/chat.css" rel="stylesheet" />
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>

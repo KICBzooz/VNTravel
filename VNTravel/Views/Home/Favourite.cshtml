@@ -1,0 +1,107 @@
+﻿@model IEnumerable<VNTravel.Models.ListFavourite>
+
+@{
+    ViewBag.Title = "Favourite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb">
+    <li><a href="~/home/#"><i class="fa fa-home"></i> Trang chủ <i class="fa fa-angle-right"></i></a></li>
+    <li><a href="~/Hotel/Hotel">Khách sạn <i class="fa fa-angle-right"></i></a></li>
+    <li class="active">Danh sách yêu thích</li>
+</ol>
+<h2>Favourite</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<div class="col-xl-6">
+    @*<h6 class="text-muted">Basic</h6>*@
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Danh sách phòng </a></li>
+            <li><a data-toggle="tab" href="#menu1">Dach sách vé máy bay</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Trạng thái 
+                        </th>
+                        <th>
+                            Tài khoản
+                        </th>
+                        <th>
+                            Phòng
+                        </th>
+                        <th>
+                            Chức năng
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(m => m.Room_number != null && m.status_fav == true))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status_fav)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account.Username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Room.Room_Type1.room_name)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink( "Fav", "_Fav", new { id = item.ID_favourite }) |*@
+                                @Html.ActionLink( "UnFav", "_UnFav", new { id = item.ID_favourite })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Trạng thái
+                        </th>
+                        <th>
+                            Tài khoản
+                        </th>
+                        <th>
+                            Vé máy bay
+                        <th>
+                            Chức năng
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(m => m.Ticket_id != null && m.status_fav==true))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status_fav)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account.Username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ticket.Ticket_name)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink( "Fav", "_Fav", new { id = item.ID_favourite }) |*@
+                                @Html.ActionLink( "UnFav", "_UnFav", new { id = item.ID_favourite })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+        </div>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

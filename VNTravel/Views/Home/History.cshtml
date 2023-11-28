@@ -1,0 +1,153 @@
+﻿@model IEnumerable<VNTravel.Models.Bill>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="~/CSSQLKH/script_js.js"></script>
+<link href="~/CSSQLKH/style.css" rel="stylesheet" />
+
+<body>
+    <style>
+        thead, tbody, tfoot, tr, td, th {
+            border-style: none !important;
+        }
+
+        .size_search {
+            height: 21px !important;
+            width: 21px !important;
+        }
+
+        .table__header .input-group {
+            width: 35%;
+            height: 100%;
+            background-color: #fff5;
+            padding: 0 0.8rem;
+            border-radius: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+            align-content: stretch;
+            flex-wrap: nowrap;
+        }
+    </style>
+    <main class="table">
+        <section class="table__header">
+            <h1>Lịch Sử Đặt</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Nhập dữ liệu..." class="search">
+                <img src="~/CSSQLKH/images/search.png" alt="" class="size_search">
+            </div>
+            
+        </section>
+        <section class="table__body">
+            <table id="customers_table">
+                <thead>
+                    <tr>
+                        <th>
+                            Id Hóa Đơn
+                        </th>
+                        <th>
+                            Ngày Tạo
+                        </th>
+                        <th>
+                            Loại Hóa Đơn
+                        </th>
+                        <th>
+                            Tổng Tiền
+                        </th>
+                        <th>
+                            Mã Giảm Giá
+                        </th>
+                        <th>
+                            Trạng Thái Hóa Đơn
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bill_id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bill_date)
+                            </td>
+                            <td>
+                                @if (item.Bill_type == 0)
+                                {
+                                    @Html.DisplayName("Phòng")
+                                }
+                                else
+                                {
+                                    @Html.DisplayName("Vé")
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bill_total)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Voucher.Voucher_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @if (item.Status == "Đã thanh toán")
+                                {
+                                    if (item.Bill_type == 0)
+                                    {
+                                        @Html.ActionLink("Xem hóa đơn", "ViewBill", "Admin", new { id = item.Bill_id }, null)
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Xem vé |", "SuccessView", "Flight", new { idBill = item.Bill_id }, null)
+                                        @Html.ActionLink("Xem hóa đơn", "ViewBillTicket", "Admin", new { id = item.Bill_id }, null)
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Status == "Đã hủy")
+                                    {
+                                        if (item.Bill_type == 0)
+                                        {
+                                            @Html.ActionLink("Xem hóa đơn", "ViewBill", "Admin", new { id = item.Bill_id }, null)
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Xem vé |", "SuccessView", "Flight", new { idBill = item.Bill_id }, null)
+                                            @Html.ActionLink("Xem hóa đơn", "ViewBillTicket", "Admin", new { id = item.Bill_id }, null)
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (item.Bill_type == 0)
+                                        {
+                                            @Html.ActionLink("Xem hóa đơn |", "ViewBill", "Admin", new { id = item.Bill_id }, null)
+                                            @Html.ActionLink("Thanh toán |", "PayFromHistory", "Hotel", new { id = item.Bill_id }, null)
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Xem vé |", "SuccessView", "Flight", new { idBill = item.Bill_id }, null)
+                                            @Html.ActionLink("Xem hóa đơn |", "ViewBillTicket", "Admin", new { id = item.Bill_id }, null)
+                                            @Html.ActionLink("Thanh toán |", "PayFromHistory", "Flight", new { id = item.Bill_id }, null)
+                                        }
+                                        @Html.ActionLink("Hủy đơn", "CancelBill", new { id = item.Bill_id })
+
+                                    }
+
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>

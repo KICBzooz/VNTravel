@@ -1,0 +1,65 @@
+﻿@model VNTravel.Models.Voucher
+
+@{
+    ViewBag.Title = "DeleteVoucher";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+}
+
+<h2>DeleteVoucher</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Voucher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_voucher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_voucher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Voucher_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voucher_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Voucher_percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voucher_percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiredDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiredDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "ListVoucher", "Admin")
+        </div>
+    }
+</div>

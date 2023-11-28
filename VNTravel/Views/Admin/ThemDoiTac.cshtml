@@ -1,0 +1,148 @@
+﻿@model VNTravel.Models.Accompany
+
+@{
+    ViewBag.Title = "ThemDoiTac";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+    VNTravel.Models.WebtraveldbEntities db = new VNTravel.Models.WebtraveldbEntities();
+}
+<div class="main-panel" style="width:100%">
+    <div class="content-wrapper">
+        <div class="row" style="width:600px">
+            <div class="card card-rounded">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">Info Contract</h4>
+                            <p class="card-subtitle card-subtitle-dash">Input infamation of contract</p>
+
+                        </div>
+                        <div>
+                            <button @*onclick="location.href='@Url.Action("themtaikhoan", "admin")';"*@
+                                    onclick="alert('Tạo thông tin đối tác trước!');"
+                                    class="btn btn-info btn-fw text-white mb-0 me-0"
+                                    type="button">
+                                Add Account
+                            </button>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("ThemDoiTac", "admin", new {@class = "modal-content"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div>
+                            <div class="" role="document">
+                                <div class="">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel3">Nhập Thông Tin Đối Tác</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div class="col-12">
+                                                @Html.LabelFor(model => model.Accompany_name, "Tên đối tác", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.EditorFor(model => model.Accompany_name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Accompany_name, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-3 mt-2">
+                                                @Html.LabelFor(model => model.Accompany_typeid, "Nhóm đối tác", htmlAttributes: new { @class = "form-label " })
+                                                @Html.DropDownListFor(model => model.Accompany_typeid, new SelectList(db.Accompany_Type.ToList(), "Typeid", "accompany_name",1), htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Accompany_typeid, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row form-group">
+                                            <div class="col-6">
+                                                @Html.LabelFor(model => model.Accompany_email, "Gmail Liên Hệ", htmlAttributes: new { @class = "form-label " })
+                                                @Html.EditorFor(model => model.Accompany_email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Accompany_email, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-6">
+                                                @Html.LabelFor(model => model.Accompany_phone, "SDT Liên Hệ", htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.Accompany_phone, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Accompany_phone, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="location.href='@Url.Action("quanlydoitac", "admin")';" type="button" id="btnCancal" class="btn btn-outline-secondary">
+                                Đóng
+                            </button>
+                            <button type="submit" id="" class="btn btn-success">Thêm Mới</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+@*<h2>ThemDoiTac</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Accompany</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Accompany_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Accompany_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Accompany_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Accompany_email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Accompany_email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Accompany_email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Accompany_phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Accompany_phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Accompany_phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Accompany_typeid, "Accompany_typeid", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Accompany_typeid", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Accompany_typeid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Username", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VNTravel.Models.Voucher>
+
+@{
+    ViewBag.Title = "ListVoucher";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+}
+
+<h2>ListVoucher</h2>
+
+<p>
+    @Html.ActionLink("Tạo voucher mới", "CreateVoucher")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_voucher)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Voucher_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Voucher_percent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiredDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_voucher)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Voucher_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Voucher_percent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpiredDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit Voucher", "EditVoucher", new {  id=item.ID_voucher  }) |
+            @Html.ActionLink("Detail Voucher", "DetailVoucher", new { id=item.ID_voucher }) |
+            @Html.ActionLink("Delete Voucher", "DeleteVoucher", new {  id=item.ID_voucher })
+        </td>
+    </tr>
+}
+
+</table>

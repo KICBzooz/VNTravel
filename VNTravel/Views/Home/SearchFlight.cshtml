@@ -1,0 +1,390 @@
+﻿@model IEnumerable<VNTravel.Models.Ticket>
+
+@{
+    ViewBag.Title = "SearchFlight";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách chuyến bay</title>
+    <style>
+        .comments-container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment {
+            margin-bottom: 15px;
+        }
+
+            .comment div {
+                width: 100%;
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-bottom: 10px;
+            }
+
+            .comment strong {
+                color: #3498db;
+            }
+
+        #commentForm {
+            margin-top: 20px;
+        }
+
+            #commentForm textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            #commentForm button {
+                background-color: #3498db;
+                color: #fff;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                #commentForm button:hover {
+                    background-color: #2980b9;
+                }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .flight-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+        }
+
+        .flight-title {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .flight-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flight-card {
+            position: relative;
+            align-items: center;
+            flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .flight-image img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .flight-details {
+            flex-grow: 1;
+            padding: 20px;
+            text-align: left;
+            width: 100%;
+        }
+
+            .flight-details h2 {
+                color: #333;
+                margin: 0;
+            }
+
+            .flight-details p {
+                color: #777;
+                margin: 5px 0;
+            }
+
+            .flight-details strong {
+                color: #333;
+            }
+
+        .flight-actions {
+            width: 100%;
+            display: flex;
+            padding: 10px;
+            text-align: center;
+        }
+
+            .flight-actions button {
+                cursor: pointer;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 3px;
+                margin-left: 5px;
+            }
+
+        .flight-details-container,
+        .comments-container {
+            display: none;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .active {
+            width: 100% !important;
+            display: block;
+        }
+
+        .comments-container textarea {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .flight-price {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #eee;
+            text-align: right;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: space-around; /* Canh giữa các thành phần trong container */
+            align-items: center; /* Canh giữa theo chiều dọc */
+            padding: 20px; /* Khoảng cách giữa các thành phần và mép container */
+            background-color: #f4f4f4; /* Màu nền container */
+            border: 1px solid #ddd; /* Viền container */
+            border-radius: 5px; /* Bo tròn các góc container */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng container */
+        }
+
+            .search-container div {
+                flex: 1; /* Định kích thước của mỗi div bằng nhau */
+                margin: 0 10px; /* Khoảng cách giữa các div */
+            }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px; /* Khoảng cách giữa các input và label */
+        }
+
+        button {
+            width:100%;
+            margin:20px 0 20px 0;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("SearchFlight", "Home", FormMethod.Post))
+    {
+        <div class="searchHotel">
+            <div class="search-container">
+                <div>
+                    <div style="text-align: center;">
+                        <label for="location" style="line-height: 55px;">Địa điểm xuất phát:</label>
+                        <input type="text" id="location" name="departure" placeholder="Nhập địa điểm" required>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <label for="location" style="line-height: 55px;">Địa điểm đến:</label>
+                        <input type="text" id="location" name="arrival" placeholder="Nhập địa điểm" required>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="text-align: center;">
+                        <label for="check-in" style="line-height: 55px;">Ngày nhận phòng:</label>
+                        <input type="date" id="check-in" name="checkin" required>
+                    </div>
+
+
+                    <div style="text-align: center;">
+                        <label for="check-out" style="line-height: 55px;">Ngày trả phòng:</label>
+                        <input type="date" id="check-out" name="checkout" required>
+                    </div>
+                </div>
+
+            </div>
+            <button type="submit">Tìm kiếm</button>
+
+        </div>
+    }
+    <div class="flight-container">
+        <h1 class="flight-title">Danh sách chuyến bay</h1>
+        <ul class="flight-list">
+            @foreach (var item in Model)
+            {
+                <li class="flight-card">
+                    <div class="flight-image">
+                        <img src="@Url.Content(item.Ticket_image)" alt="Flight 1">
+                    </div>
+                    <div class="flight-details">
+                        <h2>@item.Ticket_name</h2>
+                        <p><strong>Check-in: </strong>@item.BeginDate</p>
+                        <p><strong>Check-out: </strong>@item.EndDate</p>
+                    </div>
+                    <div class="flight-actions">
+                        <button class="flight-details-button" onclick="toggleDetails(@item.Ticket_id - 1)">Chi Tiết</button>
+                        <button class="valuation-button" onclick="toggleComments(@item.Ticket_id - 1)" data-ticket-id="@item.Ticket_id">Bình Luận</button>
+                        <a href="@Url.Action("Book","Flight", new { id = item.Ticket_id})">
+                            <button class="choose-button">Chọn</button>
+                        </a>
+
+                    </div>
+                    <div class="flight-price">
+                        <p><strong>Giá:</strong> $@item.Price.price1</p>
+                    </div>
+                    <div class="flight-details-container">
+                        @*<p>    Thông T    </p>*@
+                        <p>Tên Công Ty: @item.Accompany.Accompany_name</p>
+                        <p>Số Chuyến Bay: @item.Flight_Number</p>
+                        <p>Email Công Ty: @item.Accompany.Accompany_email</p>
+                        <p>Số điện thoại Công Ty: @item.Accompany.Accompany_phone</p>
+                    </div>
+
+                    <div class="comments-container" id="comments-@item.Ticket_id">
+                        <div class="comment">
+                            @foreach (var c in item.Comments)
+                            {
+                                if (item.Ticket_id == c.Ticket_id)
+                                {
+                                    <div>
+                                        <strong>@c.Username:</strong> @c.Content
+
+                                    </div>
+                                    if (Session["Accompany_ID"] != null)
+                                    {
+                                        <a class="FuncDel" href="@Url.Action("ManageComments","Flight", new { Ticket_id = c.Ticket_id, id_comment = c.Id_Comment})">Xóa</a>
+                                    }
+                                }
+                            }
+                            <style>
+                                .comment {
+                                    display: flex;
+                                    justify-content: space-between;
+                                }
+
+                                .FuncDel {
+                                    cursor: pointer;
+                                    margin: 0px 0px 0px 10px;
+                                    line-height: 40px;
+                                }
+                            </style>
+                        </div>
+                        @using (Html.BeginForm("Comment", "Flight", FormMethod.Post, new { id = "commentForm" }))
+                        {
+                            @Html.Hidden("Ticket_id", item.Ticket_id)
+                            <textarea placeholder="Viết bình luận..." name="cmt"></textarea>
+                            <button type="submit">Gửi</button>
+                        }
+                    </div>
+
+                </li>
+
+            }
+            @if (Session["Comment"] != null)
+            {
+                <script>
+                    alert("Vui lòng đăng nhập để bình luận.");
+                </script>
+                Session.Remove("Comment");
+            }
+        </ul>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        // Hiển thị bình luận mới ngay lập tức
+                        var commentsContainer = form.closest('.comments-container');
+                        commentsContainer.append(response);
+                        // Xóa nội dung textarea
+                        form.find('textarea').val('');
+                    }
+                });
+            });
+        });
+
+        function toggleDetails(index) {
+            const flightDetailsContainer = document.querySelectorAll('.flight-details-container')[index];
+            toggleActiveState(flightDetailsContainer);
+        }
+
+        function toggleComments(index) {
+            const button = document.querySelectorAll('.valuation-button')[index];
+            const ticketId = button.getAttribute('data-ticket-id');
+            const commentsContainer = document.getElementById(`comments-${ticketId}`);
+            toggleActiveState(commentsContainer);
+        }
+
+        function toggleActiveState(element) {
+            if (element) {
+                element.classList.toggle('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+<script src="~/MyScript/Booking.js"></script>

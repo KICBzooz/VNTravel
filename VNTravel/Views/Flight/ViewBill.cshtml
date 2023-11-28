@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "ViewBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="bill1">
+    <div class="bill2">
+        <h1 class="ttb">Thông tin hóa đơn</h1>
+        <div class="fo">
+            <label>Tên khách hàng:</label>
+            <span>@ViewBag.NameCustomer</span>
+        </div>
+        <div class="fo">
+            <label>Ngày tạo bill:</label>
+            <span>@ViewBag.DateBill</span>
+        </div>
+        <div class="fo">
+            <label>Tiền vé:</label>
+            <span>@ViewBag.PriceTicket</span>
+        </div>
+        <div class="fo">
+            <label>Tổng tiền dịch vụ:</label>
+            <span>@ViewBag.PriceService</span>
+        </div>
+        <div class="fo">
+            <label>Check in:</label>
+            <span>@ViewBag.Begin</span>
+        </div>
+        <div class="fo">
+            <label>Check out:</label>
+            <span>@ViewBag.End</span>
+        </div>
+        <div class="fo">
+            <label>Tổng tiền:</label>
+            <span>@ViewBag.TotalBill</span>
+        </div>
+        <div class="fo">
+            <label>Trạng thái bill:</label>
+            <span>Chưa thanh toán</span>
+        </div>
+        <div class="bill3">
+            @Html.ActionLink("Để Sau", "History", "Home", new { @class = "payment" },null)
+        </div>
+        <div class="bill3">
+            @Html.ActionLink("Thanh Toán", "PaymentWithPaypal", "Flight", new { @class = "payment" }, null)
+        </div>
+    </div>
+</div>
+<style>
+    .ttb {
+        text-align: center;
+    }
+
+    .payment {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff; /* Màu nền */
+        color: #fff; /* Màu chữ */
+        text-decoration: none;
+        border-radius: 4px; /* Bo tròn góc */
+        transition: background-color 0.3s; /* Hiệu ứng màu nền khi hover */
+    }
+
+        .payment:hover {
+            background-color: #0056b3; /* Màu nền khi hover */
+            text-decoration: none;
+            color: #fff; /* Màu chữ */
+        }
+
+        /* CSS cho liên kết khi click (active) */
+        .payment:active {
+            background-color: #003c80; /* Màu nền khi click */
+            text-decoration: none;
+            color: #fff; /* Màu chữ */
+        }
+
+    .bill1 {
+        padding: 20px 20px 20px 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .bill2 {
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 auto;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .fo {
+        margin-top: 10px;
+    }
+
+        .fo label {
+            font-weight: bold;
+        }
+
+        .fo span {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+    .bill3 {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .bill3 .bill4 {
+            background-color: #0074d9;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .bill3 .bill4:hover {
+                background-color: #0056b3;
+            }
+</style>
+

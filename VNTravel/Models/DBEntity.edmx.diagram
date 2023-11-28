@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8d6145096b134b6a8e949abb3a074487" Name="Diagram1">
+        <EntityTypeShape EntityType="webtraveldbModel.Accompany" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Accompany_Type" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Account" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Bill" Width="1.5" PointX="10.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.ChatComment" Width="1.5" PointX="3" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.ChatReply" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Comment" Width="1.5" PointX="14.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Customer" Width="1.5" PointX="3" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.DetailContract" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.DetailRoomBill" Width="1.5" PointX="13" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.DetailTicketBill" Width="1.5" PointX="14.75" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.ListFavourite" Width="1.5" PointX="15.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Payment" Width="1.5" PointX="6" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Price" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Revenue" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Room" Width="1.5" PointX="10.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Room_Type" Width="1.5" PointX="7.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.ServiceType" Width="1.5" PointX="7.5" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Ticket" Width="1.5" PointX="12.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.TravelService" Width="1.5" PointX="9.75" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.VNTravel" Width="1.5" PointX="3" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="webtraveldbModel.Voucher" Width="1.5" PointX="8.5" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="webtraveldbModel.FK_Accompany_AccompanyType" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Accompany_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Contract_Accompany" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Price_Accompany" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Room_Accompany" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Service_Accompany" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Ticket_Accompany" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ChatComment_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Customer_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ListFavourite_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_VNTravel_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Bill_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Bill_Voucher" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailRoom_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailTicket_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ChatReply_ChatComment" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Comment_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Comment_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailRoom_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailTicket_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Contract_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Contract_VNTravel" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailRoom_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailRoom_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailTicket_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_DetailTicket_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ListFavourite_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ListFavourite_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ListFavourite_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_RoomType_Price" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_ServiceType_Price" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Ticket_Price" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Room_RoomType" ManuallyRouted="false" />
+        <AssociationConnector Association="webtraveldbModel.FK_Service_ServiceType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

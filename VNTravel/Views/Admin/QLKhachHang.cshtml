@@ -1,0 +1,168 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<VNTravel.Models.Customer>
+@{
+    ViewBag.Title = "QLKhachHang";
+    Layout = "~/Views/Shared/_LayoutNV.cshtml";
+}
+
+<div class="background">
+    <h2>Quản Lý Khách Hàng</h2>
+    <style>
+        .background {
+            padding-left: 30px;
+            padding-right: 170px;
+            background: #F4F5F7;
+            height: 100%;
+            width: 100%;
+        }
+
+        th {
+            border: 1px solid black;
+        }
+
+        table {
+            margin-top: 30px;
+            border: 1px solid black;
+            text-align: start;
+        }
+
+        td {
+            border: 1px solid black;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align: start;
+            padding-right: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search {
+            /*display: flex;
+            flex-direction: row-reverse;*/
+        }
+
+        .textbox--search:hover {
+            border: 1px solid aqua;
+            box-shadow: 0px 0px 10px aqua;
+        }
+
+        .btn-search {
+            position: relative;
+        }
+
+            .btn-search button {
+                border-style: none;
+                background: none;
+                font-size: 27px;
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                bottom: 0;
+                cursor: pointer;
+            }
+
+        .textbox--search {
+            font-size: 18px;
+            padding: 10px 10px;
+            width: 350px;
+            border-radius: 5px;
+            border-style: none;
+            outline: none;
+        }
+    </style>
+    <div class="search">
+        <div class="btn-search">
+            @using (Html.BeginForm("QLKhachHang", "Admin", FormMethod.Get))
+            {
+                <div>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Nhập tên...", @class = "textbox--search" })
+                    <button type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            }
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Customer_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Customer_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Customer_email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Customer_phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Username)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Xem thông tin", "ViewBill", new { id = item.Customer_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="MenuPage">
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("QLKhachHang", "Admin", new { page = page, currentFilter = ViewBag.CurrentFilter, @class = "page" }))
+        </div>
+        <style>
+            .pagination li {
+                padding: 2px 6px !important;
+                border: 1px solid !important;
+            }
+
+                .pagination li a {
+                    text-decoration: none !important;
+                    color: black !important;
+                }
+
+            .pagination {
+                list-style: none;
+                display: flex;
+                margin-top: 30px;
+                margin-bottom: 30px;
+                margin-left: 45% !important;
+            }
+
+            .active {
+                padding: 2px 6px !important;
+                background-color: #88a4f5 !important;
+                /*color: white;*/
+                border: 1px solid !important;
+                /* background-color: #717171; */
+                /*max-width: 27px !important;*/
+                text-align: center !important;
+            }
+        </style>
+    </div>
+</div>
